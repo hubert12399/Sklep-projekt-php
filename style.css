@@ -1,0 +1,200 @@
+body{
+    font-family: 'Sofia Sans Semi Condensed', sans-serif;
+    color: #1D3557;
+    background-color: #F1FAEE;
+    font-size: 18px;
+    width: auto;
+}
+
+input[type=text], input[type=password]{
+    margin: 3px;
+    padding: 9px;
+    border:0;
+    box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+    border-radius: 6px;
+}
+
+input[type=submit], input[type=button], input[type=reset] {
+    font-family: 'Sofia Sans Semi Condensed', sans-serif;
+    font-size: 16px;
+    margin: 6px;
+    color: #1D3557;
+    background-color: #c4e0f1;
+    border:0;
+    border-radius: 6px;
+    box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+    padding: 6px;
+}
+
+input[type=submit]:hover, input[type=button]:hover, input[type=reset]:hover {
+    font-family: 'Sofia Sans Semi Condensed', sans-serif;
+    font-size: 16px;
+    margin: 6px;
+    color: #1D3557;
+    background-color: #afd5ec;
+    border:0;
+    border-radius: 6px;
+    box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+    padding: 6px;
+}
+
+input[type=submit]:focus, input[type=button]:focus, input[type=reset]:focus {
+    font-family: 'Sofia Sans Semi Condensed', sans-serif;
+    font-size: 16px;
+    margin: 6px;
+    color: #1D3557;
+    background-color: #a4c6da;
+    border:0;
+    border-radius: 6px;
+    box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+    padding: 6px;
+}
+
+#menu {
+    text-align: center;
+}
+
+#header {
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 27px;
+    background-color: #c4e0f1;
+    box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+}
+
+#logo {
+    font-size: 54px;
+    margin: 33px;
+    text-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+#log-out {
+    margin: 27px;
+    float: right;
+    float: top;
+}
+
+#menu-sklep {
+    text-align: center;
+}
+
+#menu-cat-w {
+    margin: 9px;
+}
+
+a:link{
+    text-decoration: overline;
+    color:#1D3557;
+}
+
+a:hover{
+    color: #457B9D;
+    text-decoration: none;
+}
+
+a:active{
+    color: #457B9D;
+    text-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+#footer {
+    height: 108px;
+    background-color: #1D3557;
+    color: #F1FAEE;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    border-top: 6px #457B9D solid ;
+}
+
+#tabela{
+    margin-left: 27px;
+}
+
+#tytul{
+    border-bottom: 2px solid #1D3557;
+    margin: 0 auto;
+    width: 200px;
+}
+
+#cena{
+    border-bottom: 2px solid #1D3557;
+    border-left: 2px solid #1D3557;
+    margin: 0 auto;
+    width: 200px;
+}
+
+#grafika{
+    border-bottom: 2px solid #1D3557;
+    border-left: 2px solid #1D3557;
+    margin: 0 auto;
+    width: 250px;
+
+}
+
+#produkty-main{
+    position: relative;
+    top: 120px;
+    position: relative;
+    left: 300px;
+    width: 1500px;
+    height: 200px;
+}
+
+#produkt1 {
+    width: 70px;
+    display: block;
+    float: left;
+
+}
+
+#produkt2 {
+    width: 70px;
+    display: block;
+    float: left;
+    margin-left: 200px;
+}
+
+#produkt3 {
+    width: 70px;
+    display: block;
+    float: left;
+    margin-left: 200px;
+}
+
+#produkt4 {
+    width: 70px;
+    display: block;
+    float: left;
+    margin-left: 200px;
+}
+
+#produkt5 {
+    width: 70px;
+    display: block;
+    float: left;
+    margin-left: 200px;
+}
+
+#panel {
+    position: relative;
+    z-index: 1;
+}
+
+.container{
+    display: block;
+    margin: 20px;
+}
+
+#zawartosc {
+    position: relative;
+    left: 400px;
+}
+
+#zamowienie {
+    margin: 27px;
+}
