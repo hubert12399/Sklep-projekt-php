@@ -32,7 +32,10 @@ if(isset($_POST['order_btn'])){
    $country = $_POST['country'];
    $pin_code = $_POST['pin_code'];
 
-   $cart_query = mysqli_query($conn, "SELECT * FROM `koszyk`");
+   //sprawdzanie warunków
+  
+
+   $cart_query = mysqli_query($conn, "SELECT * FROM `koszyk`  WHERE email = '$sesja'");
    $price_total = 0;
    if(mysqli_num_rows($cart_query) > 0){
       while($product_item = mysqli_fetch_assoc($cart_query)){
@@ -41,6 +44,37 @@ if(isset($_POST['order_btn'])){
          $price_total += $product_price;
       };
    };
+
+   if (!preg_match("/^[a-zA-Z ]*$/",$name) === true){
+      $msg1="Nazwa może posiadać tylko litery.";
+   }else {//imie
+
+   if (!preg_match("/^[0-9]*$/",$number) === true){
+      $msg2 = "Numer składa się tylko z cyfr.";
+   }else{//numer
+   
+   if (filter_var($email, FILTER_VALIDATE_EMAIL) === false ){
+      $msg3 = "E-mail jest nie poprawny.";
+   }else{//email
+      
+   if ($method != 'Gotówką przy odbiorze' AND $method != 'Blik' AND $method != 'Karta kredytowa' ){
+      $msg4 = "Specjalnie ustawiłeś złą metode płatności, nie zadziała :)";
+   }else{//metoda
+
+   if (!preg_match("/^[a-zA-Z ]*$/",$city) === true){
+      $msg5="Miasto może posiadać tylko litery.";
+   }else {//miasto
+
+   if (!preg_match("/^[a-zA-Z ]*$/",$state) === true){
+      $msg6="Województwo może posiadać tylko litery.";
+   }else {//wojewodztwo
+      
+   if (!preg_match("/^[a-zA-Z ]*$/",$country) === true){
+      $msg6="Kraj może posiadać tylko litery.";
+   }else {//kraj
+   if (!preg_match("/^[0-9 -]*$/",$pin_code) === true){
+      $msg8 = "Kod pocztowy może składać się tylko z cyfr.";
+   }else{//kod          
 
    $total_product = implode(', ',$product_name);
    $detail_query = mysqli_query($conn, "INSERT INTO `order`(name, number, email, method, flat, street, city, state, country, pin_code, total_products, total_price) VALUES('$name','$number','$email','$method','$flat','$street','$city','$state','$country','$pin_code','$total_product','$price_total')") or die('query failed');
@@ -68,8 +102,36 @@ if(isset($_POST['order_btn'])){
       </div>
       ";
    }
-
+   //
+}//imie
+}//numer
+}//email
+}//metoda
+}//miasto
+}//wojewodztwo
+}//kraj
+}//kod
+   
 }
+
+        $servername = "localhost";
+        $username = "root";
+        $passwrd = "";
+        $dbname = "sklep";
+
+        $conn = new mysqli($servername, $username, $passwrd, $dbname);
+        
+
+        // Sprawdzenie połączenia
+        if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+        }
+
+        $result = mysqli_query($conn, "SELECT * FROM users WHERE email = '$sesja'");
+
+        while($row = mysqli_fetch_array($result)){
+         $nazwa=$row['nazwa'];
+      }
 
 ?>
 
@@ -79,7 +141,7 @@ if(isset($_POST['order_btn'])){
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>checkout</title>
+   <title>Checkout</title>
    <link href="https://fonts.googleapis.com/css2?family=Sofia+Sans+Semi+Condensed:wght@300&display=swap" rel="stylesheet">
    <link rel="stylesheet" href="style.css">
 
@@ -117,15 +179,18 @@ if(isset($_POST['order_btn'])){
       <div class="flex">
          <div class="inputBox">
             <span>Twoje imię i nazwisko</span>
-            <input type="text" placeholder="Wprowadź swoje imię i nazwisko" name="name" required>
+            <input type="text" value="<?php echo $nazwa ;?>" placeholder="Wprowadź swoje imię i nazwisko" name="name" required>
+            <?php if(isset($msg1)){ echo $msg1; }?>
          </div>
          <div class="inputBox">
             <span>Twój numer</span>
             <input type="number" placeholder="Wprowadź swój numer" name="number" required>
+            <?php if(isset($msg2)){ echo $msg2; }?>
          </div>
          <div class="inputBox">
             <span>Twój e-mail</span>
-            <input type="email" placeholder="Wprowadź swój e-mail" name="email" required>
+            <input type="email" value="<?php echo $sesja ;?>" placeholder="Wprowadź swój e-mail" name="email" required>
+            <?php if(isset($msg3)){ echo $msg3; }?>
          </div>
          <div class="inputBox">
             <span>Metoda płatności</span>
@@ -134,6 +199,7 @@ if(isset($_POST['order_btn'])){
                <option value="Karta kredytowa">Karta kredytowa</option>
                <option value="Blik">Blik</option>
             </select>
+            <?php if(isset($msg4)){ echo $msg4; }?>
          </div>
          <div class="inputBox">
             <span>Adress 1</span>
@@ -146,21 +212,28 @@ if(isset($_POST['order_btn'])){
          <div class="inputBox">
             <span>Miasto</span>
             <input type="text" placeholder="Nazwa miasta" name="city" required>
+            <?php if(isset($msg5)){ echo $msg5; }?>
          </div>
          <div class="inputBox">
             <span>Województwo</span>
             <input type="text" placeholder="Województwo" name="state" required>
+            <?php if(isset($msg6)){ echo $msg6; }?>
          </div>
          <div class="inputBox">
             <span>Kraj</span>
             <input type="text" placeholder="Twój kraj" name="country" required>
+            <?php if(isset($msg7)){ echo $msg7; }?>
          </div>
          <div class="inputBox">
             <span>Kod Pocztowy</span>
             <input type="text" placeholder="Twój kod pocztowy" name="pin_code" required>
+            <?php if(isset($msg8)){ echo $msg8; }?>
          </div>
       </div>
-      <input type="submit" value="Zamów teraz" name="order_btn" class="btn">
+      <?php if(mysqli_num_rows($select_cart)){    
+         echo '<input type="submit" value="Zamów teraz" name="order_btn" class="btn">';
+      }
+      ?>
    </form>
 
 </section>

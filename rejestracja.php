@@ -36,9 +36,6 @@
             $password2 = $_POST['password2'];
             $email = $_POST['email'];
 
-        //Rejestracja
-            
-            if($password==$password2){
 
                 //Połączenie z bazą
 
@@ -63,6 +60,21 @@
             
             //$passwordhash = password_hash($password, PASSWORD_DEFAULT);
             
+            if (strlen($nazwa)<1){
+                exit('Nazwa nie może być pusta.'); 
+            }
+            if (filter_var($email, FILTER_VALIDATE_EMAIL) === false )
+             {
+                exit("E-mail jest nie poprawny.");
+            }
+            if (strlen($password)<1){
+                exit('Hasło nie może być puste.'); 
+            }
+            if($password!=$password2){
+                exit('Hasła nie zgadzają się.');
+            }
+
+            
             $result = mysqli_query($conn, "SELECT * FROM users WHERE `email`='$email'");
 
             if($result->num_rows > 0){
@@ -74,10 +86,6 @@
              } else{
                 echo "Nieoczekiwany błąd - użytkownik już istnieje lub błąd serwera MySQL.";
              }
-            }
-            
-            }else{
-                echo "Podane hasła nie zgadzają się";
             }
             }
         }

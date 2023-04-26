@@ -32,10 +32,14 @@ $sesja=$_SESSION['valid'];
 if(isset($_POST['update_update_btn'])){
    $update_value = $_POST['update_quantity'];
    $update_id = $_POST['update_quantity_id'];
-   $update_quantity_query = mysqli_query($conn, "UPDATE `koszyk` SET ilosc = '$update_value' WHERE id_gitary = '$update_id' && email = '$sesja'");
-   if($update_quantity_query){
-      header('location:koszyk.php');
-   };
+   if($update_value>=1){
+      $update_quantity_query = mysqli_query($conn, "UPDATE `koszyk` SET ilosc = '$update_value' WHERE id_gitary = '$update_id' && email = '$sesja'");
+      if($update_quantity_query){
+         header('location:koszyk.php');
+      };
+   }else{
+      $wiadomosc = "Nie możesz dodać do koszyka mniej niż jeden produkt.";
+   }
 };
 
 if(isset($_GET['remove'])){
@@ -76,6 +80,7 @@ if(isset($_GET['delete_all'])){
             <a href="gitary-klasyczne.php" id="menu-cat-w">Gitary Klasyczne</a>
             <a href="gitary-akustyczne.php" id="menu-cat-w">Gitary Akustyczne</a>
             <a href="gitary-elektryczne.php" id="menu-cat-w">Gitary Elektryczne</a>
+            <a href="mojezamowienie.php" id="menu-cat-w">Moje Zamówienie</a>
         </div>
 
 
@@ -117,8 +122,9 @@ if(isset($_GET['delete_all'])){
                <form action="" method="post">
                   <input type="hidden" name="update_quantity_id"  value="<?php echo $fetch_cart['id_gitary']; ?>" >
                   <input type="number" name="update_quantity" min="1"  value="<?php echo $fetch_cart['ilosc']; ?>" >
+                  <?php if(isset($wiadomosc)){ echo $wiadomosc; }?>
                   <input type="submit" value="Zmień" name="update_update_btn">
-               </form>   
+               </form>
             </td>
             <td>$<?php echo $sub_total = $fetch_cart['cena'] * $fetch_cart['ilosc']; ?>/-</td>
             <td><a href="koszyk.php?remove=<?php echo $fetch_cart['id_gitary']; ?>" onclick="return confirm('Usunąć rzecz z koszyka?')" class="delete-btn"> <i class="fas fa-trash"></i> Usuń</a></td>
@@ -137,10 +143,16 @@ if(isset($_GET['delete_all'])){
 
       </tbody>
 
-   </table>
+      </table>
 
    <div class="checkout-btn">
-      <a href="checkout.php" class="btn <?= ($grand_total > 1)?'':'disabled'; ?>">Przejdź do checkout-u!</a>
+      <?php
+      if($grand_total > 1){
+      echo '<a href="checkout.php" >Przejdź do checkout-u!</a>';
+      }else{
+         echo "Twoj koszyk jest pusty.";
+      }
+      ?>
    </div>
       </div>
 

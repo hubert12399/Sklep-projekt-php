@@ -6,7 +6,15 @@ body{
     width: auto;
 }
 
-input[type=text], input[type=password]{
+input[type=text], input[type=password], [type=email], [type=number]{
+    margin: 3px;
+    padding: 9px;
+    border:0;
+    box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+    border-radius: 6px;
+}
+
+select{
     margin: 3px;
     padding: 9px;
     border:0;

@@ -45,9 +45,22 @@ if(isset($_GET['remove'])){
         <form method="POST" action="wyloguj.php">  
             <input type="submit" id="wyloguj" value="Wyloguj">
         </form>
+        <div id="menu-sklep">
+
+        <h1 id="logo">Sklep z gitarami</h1>
+            <div id="menu-cat">
+                <a href="sklep.php" id="menu-cat-w">Strona Główna</a>
+                <a href="gitary-klasyczne.php" id="menu-cat-w">Gitary Klasyczne</a>
+                <a href="gitary-akustyczne.php" id="menu-cat-w">Gitary Akustyczne</a>
+                <a href="gitary-elektryczne.php" id="menu-cat-w">Gitary Elektryczne</a>
+                <a href="koszyk.php" id="menu-cat-w">Koszyk</a>
+            </div>
+        </div>
         <?php
 
             $result = mysqli_query($conn, "SELECT * FROM `order` WHERE `email` = '$sesja'");
+
+            if(mysqli_num_rows($result)>=1){
 
             while($row = mysqli_fetch_array($result)){
                 ?>
@@ -59,6 +72,10 @@ if(isset($_GET['remove'])){
                         <td><b>Produkty: </b><br /></td>
                         <td>
                             <?php echo $row['total_products'];?><br />
+                        </td>
+                        <td><b>Łączna cena: </b><br /></td>
+                        <td>
+                            $<?php echo $row['total_price'];?><br />
                         </td>
                         <td><b>Twoje imię i nazwisko: </b><br /></td>
                         <td>
@@ -81,6 +98,9 @@ if(isset($_GET['remove'])){
                     </tr>
                 </div>
                 <?php
+            }
+            }else{
+                echo "Nie masz żadnych zamówień.";
             }
 
             mysqli_close($conn);

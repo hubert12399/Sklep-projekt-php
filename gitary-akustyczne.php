@@ -20,6 +20,7 @@
             <a href="gitary-elektryczne.php" id="menu-cat-w">Gitary Elektryczne</a>
             <a href="gitary-klasyczne.php" id="menu-cat-w">Gitary Klasyczne</a>
             <a href="koszyk.php" id="menu-cat-w">Koszyk</a>
+            <a href="mojezamowienie.php" id="menu-cat-w">Moje Zamówienie</a>
         </div>
         <!-- Logout -->
         <div id="log-out">
